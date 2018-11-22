@@ -1,12 +1,24 @@
 package com.expertus.expertusprojet.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
 
+	@Id
+	@GeneratedValue
 	private int id;
 	private String nom;
 	private int prix;
 	
+	public Product() {
+		super();
+	}
+	
 	public Product(int pId, String pNom, int pPrix) {
+		super();
 		this.id = pId;
 		this.nom = pNom;
 		this.prix = pPrix;
