@@ -7,11 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Service;
 
-import com.expertus.expertusprojet.model.ProductRepository;
+import com.expertus.expertusprojet.repository.ProductRepository;
+
 
 @SpringBootApplication
 @ComponentScan("com.expertus.expertusprojet")
+@EnableJpaRepositories("com.expertus.expertusprojet.repository")
 public class ExpertusprojetApplication implements CommandLineRunner{
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -27,4 +31,13 @@ public class ExpertusprojetApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		logger.info("All users 1 -> {}", productRepository.findAll());
 	}
+	
+    @Service
+    public static class MyService {
+        public String sayHi() {
+            return "Hello Spring Initializr!";
+        }
+
+    }
+
 }
