@@ -1,5 +1,6 @@
 package com.expertus.expertusprojet.vaadin.ui;
 
+import com.expertus.expertusprojet.Language;
 import com.expertus.expertusprojet.vaadin.view.ProductView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
@@ -10,6 +11,7 @@ import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -27,6 +29,7 @@ public class MyUI extends UI implements ViewDisplay {
 		final VerticalLayout lVerticalLayout = new VerticalLayout();
 		lVerticalLayout.setSizeFull();
 		setContent(lVerticalLayout);
+		lVerticalLayout.addComponent(new Label(Language.getLanguageHeaderTitre()));
 
 		final CssLayout lNavigationBar = new CssLayout();
 		lNavigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);

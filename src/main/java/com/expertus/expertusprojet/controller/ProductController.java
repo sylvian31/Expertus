@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.expertus.expertusprojet.bean.Product;
-import com.expertus.expertusprojet.repository.ProductRepository;
 import com.expertus.expertusprojet.service.IProductService;
 
 @RestController
