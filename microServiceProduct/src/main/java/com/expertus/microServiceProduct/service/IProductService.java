@@ -1,9 +1,9 @@
-package com.expertus.expertusprojet.service;
+package com.expertus.microServiceProduct.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.expertus.expertusprojet.bean.Product;
+import com.expertus.microServiceProduct.bean.Product;
 
 public interface IProductService {
 

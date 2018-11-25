@@ -1,4 +1,4 @@
-package com.expertus.expertusprojet.controller;
+package com.expertus.microServiceProduct.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expertus.expertusprojet.bean.Product;
-import com.expertus.expertusprojet.service.IProductService;
+import com.expertus.microServiceProduct.service.IProductService;
+import com.expertus.microServiceProduct.bean.Product;
 
 @RestController
 public class ProductController {

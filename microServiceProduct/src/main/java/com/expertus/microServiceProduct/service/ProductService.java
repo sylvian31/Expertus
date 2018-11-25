@@ -1,4 +1,4 @@
-package com.expertus.expertusprojet.service;
+package com.expertus.microServiceProduct.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertus.expertusprojet.bean.Product;
-import com.expertus.expertusprojet.repository.ProductRepository;
+import com.expertus.microServiceProduct.repository.ProductRepository;
+import com.expertus.microServiceProduct.bean.Product;
 
 @Service
 public class ProductService implements IProductService {

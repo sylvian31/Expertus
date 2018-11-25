@@ -1,4 +1,4 @@
-package com.expertus.expertusprojet.bean;
+package com.expertus.microServiceProduct.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
