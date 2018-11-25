@@ -9,9 +9,7 @@ public class Image {
 
 	/* ------------- Fields -------------*/ 
 	
-	@Id
-	@GeneratedValue
-	private int id;
+	private @Id	@GeneratedValue int id;
 	private String name;
 	private String url;
 	
