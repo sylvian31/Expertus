@@ -31,15 +31,13 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void delete(Product pProduct) {
-		repository.delete(pProduct);
+	public void deleteById(int pId) {
+		repository.deleteById(pId);
 	}
 
 	@Override
-	public void save(Product pProduct) {
-		repository.save(pProduct);
+	public Product save(Product pProduct) {
+		return repository.save(pProduct);
 	}
-
-
 
 }

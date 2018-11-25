@@ -9,12 +9,12 @@ public interface IProductService {
 
 	public List<Product> findAll();
 	
-	public Optional<Product> findById(int pId);
+	public Optional<Product> findById(int id);
 	
 	public List<Product> findByNameStartsWithIgnoreCase(String name);
 
-	public void delete(Product product);
+	public void deleteById(int id);
 
-	public void save(Product product);
-
+	public Product save(Product product);
+	
 }

@@ -1,11 +1,11 @@
-package com.expertus.microServiceProduct.bean;
+package com.expertus.microServiceImage.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Product {
+public class Image {
 
 	/* ------------- Fields -------------*/ 
 	
@@ -13,25 +13,25 @@ public class Product {
 	@GeneratedValue
 	private int id;
 	private String name;
-	private double price;
-
+	private String url;
+	
 	/* ------------- Constructor -------------*/
 	
-	public Product() {
+	public Image() {
 		super();
-	}
-	
-	public Product(String pName, double pPrice) {
-		super();
-		this.name = pName;
-		this.price = pPrice;
 	}
 
-	public Product(int pId, String pNom, double pPrice) {
+	public Image(String pName, String pUrl) {
+		super();
+		this.name = pName;
+		this.url = pUrl;
+	}
+
+	public Image(int pId, String pName, String pUrl) {
 		super();
 		this.id = pId;
-		this.name = pNom;
-		this.price = pPrice;
+		this.name = pName;
+		this.url = pUrl;
 	}
 	
 	/* ------------- Getter & Setter -------------*/
@@ -41,7 +41,7 @@ public class Product {
 	}
 	
 	public void setId(int pId) {
-		this.id = pId;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -52,17 +52,17 @@ public class Product {
 		this.name = pName;
 	}
 
-	public double getPrice() {
-		return price;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setPrice(double pPrice) {
-		this.price = pPrice;
+	public void setUrl(String pUrl) {
+		this.url = pUrl;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return "Image [id=" + id + ", name=" + name + ", url=" + url + "]";
 	}
-
+	
 }

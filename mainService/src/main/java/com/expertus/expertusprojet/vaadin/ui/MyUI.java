@@ -1,6 +1,9 @@
 package com.expertus.expertusprojet.vaadin.ui;
 
-import com.expertus.expertusprojet.Language;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import com.expertus.expertusprojet.GlobalPropertiesPath;
 import com.expertus.expertusprojet.vaadin.view.ProductView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
@@ -21,6 +24,9 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringUI
 @SpringViewDisplay
 public class MyUI extends UI implements ViewDisplay {
+	
+	@Autowired
+	Environment env;
 
 	private Panel springViewDisplay;
 
@@ -29,7 +35,7 @@ public class MyUI extends UI implements ViewDisplay {
 		final VerticalLayout lVerticalLayout = new VerticalLayout();
 		lVerticalLayout.setSizeFull();
 		setContent(lVerticalLayout);
-		lVerticalLayout.addComponent(new Label(Language.getLanguageHeaderTitre()));
+		lVerticalLayout.addComponent(new Label(env.getProperty(GlobalPropertiesPath.LANGUAGE_HEADER_TITRE_PATH)));
 
 		final CssLayout lNavigationBar = new CssLayout();
 		lNavigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);

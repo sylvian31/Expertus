@@ -8,8 +8,6 @@
       http://www.springframework.org/schema/context 
       http://www.springframework.org/schema/context/spring-context-4.2.xsd">
  
-      <context:property-placeholder location="classpath*:language/languageEN.properties" />
-      
-      <context:property-placeholder location="classpath*:language/languageFR.properties" />
+      <context:property-placeholder location="classpath*:route.properties" />
       
 </beans>
