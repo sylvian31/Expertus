@@ -51,7 +51,7 @@ public class ProductController {
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_PRODUCT_HOME_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String showHome() {
-		return "Hello from Gallery Service running at port: " + env.getProperty("local.server.port");
+		return "Hello from Product Service running at port: " + env.getProperty("local.server.port");
 	}
 
 	/**

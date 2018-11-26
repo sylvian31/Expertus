@@ -1,5 +1,7 @@
 package com.expertus.microServiceOrder.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -19,6 +21,11 @@ import com.expertus.microServiceOrder.service.OrderService;
 
 @RestController
 public class OrderController {
+	
+	/**
+	 * The Environment
+	 */
+	private @Autowired Environment env;
 
 	/** The order service */
 	private final OrderService orderService;
@@ -41,7 +48,7 @@ public class OrderController {
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_HOME_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String home() {
-		return "Welcome to Order api";
+		return "Hello from Order Service running at port: " + env.getProperty("local.server.port");
 	}
 
 	/**

@@ -2,6 +2,8 @@ package com.expertus.microServiceImage.controller;
 
 import java.net.URISyntaxException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
@@ -20,6 +22,11 @@ import com.expertus.microServiceImage.service.IImageService;
 
 @RestController
 public class ImageController {
+	
+	/**
+	 * The Environment
+	 */
+	private @Autowired Environment env;
 
 	/** The image service */
 	private final IImageService imageService;
@@ -44,7 +51,7 @@ public class ImageController {
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_HOME_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String showHome() {
-		return "Welcome to image api";
+		return "Hello from Image Service running at port: " + env.getProperty("local.server.port");
 	}
 
 	/**
