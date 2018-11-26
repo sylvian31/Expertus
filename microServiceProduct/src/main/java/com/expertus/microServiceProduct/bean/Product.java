@@ -7,39 +7,40 @@ import javax.persistence.Id;
 @Entity
 public class Product {
 
-	/* ------------- Fields -------------*/ 
-	
-	@Id
-	@GeneratedValue
-	private int id;
+	/* ------------- Fields ------------- */
+
+	private @Id @GeneratedValue int id;
 	private String name;
 	private double price;
+	private int IdImage;
 
-	/* ------------- Constructor -------------*/
-	
+	/* ------------- Constructor ------------- */
+
 	public Product() {
 		super();
 	}
-	
-	public Product(String pName, double pPrice) {
+
+	public Product(Product pProduct) {
+		super();
+		this.id = pProduct.getId();
+		this.name = pProduct.getName();
+		this.price = pProduct.getPrice();
+		this.IdImage = pProduct.getIdImage();
+	}
+
+	public Product(String pName, double pPrice, int pIdImage) {
 		super();
 		this.name = pName;
 		this.price = pPrice;
+		this.IdImage = pIdImage;
 	}
 
-	public Product(int pId, String pNom, double pPrice) {
-		super();
-		this.id = pId;
-		this.name = pNom;
-		this.price = pPrice;
-	}
-	
-	/* ------------- Getter & Setter -------------*/
+	/* ------------- Getter & Setter ------------- */
 
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int pId) {
 		this.id = pId;
 	}
@@ -58,6 +59,14 @@ public class Product {
 
 	public void setPrice(double pPrice) {
 		this.price = pPrice;
+	}
+
+	public int getIdImage() {
+		return IdImage;
+	}
+
+	public void setIdImage(int pIdImage) {
+		IdImage = pIdImage;
 	}
 
 	@Override

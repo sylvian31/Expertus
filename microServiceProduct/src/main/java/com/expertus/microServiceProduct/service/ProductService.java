@@ -13,9 +13,11 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.expertus.microServiceProduct.assembler.ProductResourceAssembler;
 import com.expertus.microServiceProduct.bean.Product;
+import com.expertus.microServiceProduct.bean.ProductWithImages;
 import com.expertus.microServiceProduct.controller.ProductController;
 import com.expertus.microServiceProduct.exception.ProductNotFoundException;
 import com.expertus.microServiceProduct.repository.ProductRepository;
@@ -26,6 +28,11 @@ public class ProductService implements IProductService {
 	/** The image repository */
 	@Autowired
 	private ProductRepository productRepository;
+
+	/**
+	 * The Rest template
+	 */
+	private @Autowired RestTemplate restTemplate;
 
 	/** The Product resource assembler */
 	@Autowired
@@ -43,7 +50,11 @@ public class ProductService implements IProductService {
 	public Resource<Product> findById(int pId) {
 		Product product = productRepository.findById(pId).orElseThrow(() -> new ProductNotFoundException(pId));
 
-		return productResourceAssembler.toResource(product);
+		ProductWithImages productWithImage = new ProductWithImages(product);
+		Object image = restTemplate.getForObject("http://image-service/images/" + product.getIdImage(), Object.class);
+		productWithImage.setImage(image);
+
+		return productResourceAssembler.toResource(productWithImage);
 	}
 
 	@Override

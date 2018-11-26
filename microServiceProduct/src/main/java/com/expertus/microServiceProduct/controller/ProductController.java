@@ -1,9 +1,9 @@
 package com.expertus.microServiceProduct.controller;
 
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
@@ -22,6 +22,11 @@ import com.expertus.microServiceProduct.service.IProductService;
 
 @RestController
 public class ProductController {
+
+	/**
+	 * The Environment
+	 */
+	private @Autowired Environment env;
 
 	/** The product service */
 	private final IProductService productService;
@@ -46,7 +51,7 @@ public class ProductController {
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_PRODUCT_HOME_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String showHome() {
-		return "Welcome to product api";
+		return "Hello from Gallery Service running at port: " + env.getProperty("local.server.port");
 	}
 
 	/**

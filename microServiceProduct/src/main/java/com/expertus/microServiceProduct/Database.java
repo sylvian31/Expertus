@@ -12,9 +12,9 @@ public class Database {
 
 	@Bean
 	CommandLineRunner initDatabase(ProductRepository productRepository) {
-		productRepository.save(new Product("MacBook Pro", 1400.50));
-		productRepository.save(new Product("IPhone", 800.00));
-		productRepository.save(new Product("Clavier", 37.58));
+		productRepository.save(new Product("MacBook Pro", 1400.50, 1));
+		productRepository.save(new Product("IPhone", 800.00, 2));
+		productRepository.save(new Product("Clavier", 37.58, 3));
 		return null;
 	}
 }
