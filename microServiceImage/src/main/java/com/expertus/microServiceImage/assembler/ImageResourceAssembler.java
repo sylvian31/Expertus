@@ -16,8 +16,8 @@ public class ImageResourceAssembler implements ResourceAssembler<Image, Resource
 	@Override
 	public Resource<Image> toResource(Image image) {
 		return new Resource<>(image,
-				linkTo(methodOn(ImageController.class).getImageById(image.getId())).withSelfRel(),
-				linkTo(methodOn(ImageController.class).getAllImageList()).withRel("images"));
+				linkTo(methodOn(ImageController.class).one(image.getId())).withSelfRel(),
+				linkTo(methodOn(ImageController.class).all()).withRel("images"));
 	}
 
 }

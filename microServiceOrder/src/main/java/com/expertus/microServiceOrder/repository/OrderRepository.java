@@ -1,8 +1,8 @@
-package com.expertus.microServiceImage.repository;
+package com.expertus.microServiceOrder.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.expertus.microServiceImage.bean.Order;
+import com.expertus.microServiceOrder.bean.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 

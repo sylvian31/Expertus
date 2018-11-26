@@ -6,7 +6,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,53 +23,55 @@ import com.expertus.microServiceImage.repository.ImageRepository;
 @Service
 public class ImageService implements IImageService{
 	
+	/** The image repository */
     @Autowired
-    private ImageRepository repository;
+    private ImageRepository imageRepository;
     
+    /** The Image resource assembler */
     @Autowired
     private ImageResourceAssembler imageResourceAssembler;
     
-    
+
 	@Override
 	public Resources<Resource<Image>> findAll() {
-		List<Resource<Image>> images = repository.findAll().stream()
+		List<Resource<Image>> images = imageRepository.findAll().stream()
 				.map(imageResourceAssembler::toResource)
 				.collect(Collectors.toList());
 
 			return new Resources<>(images,
-				linkTo(methodOn(ImageController.class).getAllImageList()).withSelfRel());
+				linkTo(methodOn(ImageController.class).all()).withSelfRel());
 	}
 
 	@Override
 	public Resource<Image> findById(int pId) {
-		Image image = repository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
+		Image image = imageRepository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
 
 		return imageResourceAssembler.toResource(image);
 	}
 	
 	@Override
 	public ResponseEntity<?> save(Image pImage) throws URISyntaxException {
-		Resource<Image> resource = imageResourceAssembler.toResource(repository.save(pImage));
+		Resource<Image> resource = imageResourceAssembler.toResource(imageRepository.save(pImage));
 
 		return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
 	}
 
 	@Override
 	public ResponseEntity<?> deleteById(int pId) {
-		repository.deleteById(pId);
+		imageRepository.deleteById(pId);
 		
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
 	public ResponseEntity<?> update(Image pNewImage, int pId) throws URISyntaxException {
-		Image updatedImage = repository.findById(pId).map(image -> {
+		Image updatedImage = imageRepository.findById(pId).map(image -> {
 			image.setName(pNewImage.getName());
 			image.setUrl(pNewImage.getUrl());
-			return repository.save(image);
+			return imageRepository.save(image);
 		}).orElseGet(() -> {
 			pNewImage.setId(pId);
-			return repository.save(pNewImage);
+			return imageRepository.save(pNewImage);
 		});
 
 		Resource<Image> resource = imageResourceAssembler.toResource(updatedImage);

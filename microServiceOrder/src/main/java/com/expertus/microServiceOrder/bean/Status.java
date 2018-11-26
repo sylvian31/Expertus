@@ -1,8 +1,9 @@
-package com.expertus.microServiceImage.bean;
+package com.expertus.microServiceOrder.bean;
 
 public enum Status {
 	
 	IN_PROGRESS,
 	COMPLETED,
 	CANCELLED;
+
 }

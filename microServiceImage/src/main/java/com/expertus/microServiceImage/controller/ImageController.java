@@ -21,22 +21,25 @@ import com.expertus.microServiceImage.service.IImageService;
 @RestController
 public class ImageController {
 
+	/** The image service */
 	private final IImageService imageService;
 
-
+	/**
+	 * Constructor
+	 * 
+	 * @param pImageService
+	 */
 	public ImageController(IImageService pImageService) {
 		super();
 		this.imageService = pImageService;
 	}
 
-	/* ---------------------------- Route ---------------------------- */
-
-	/* -------------- Home -------------- */
+	/* -------------- Get -------------- */
 
 	/**
-	 * Home show
+	 * Show home
 	 * 
-	 * @return service name
+	 * @return micro service name
 	 */
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_HOME_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,53 +47,52 @@ public class ImageController {
 		return "Welcome to image api";
 	}
 
-	/* -------------- Get -------------- */
-
 	/**
-	 * Get all images
+	 * Get all Images
 	 * 
-	 * @return list images
+	 * @return list Image
 	 */
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_ALL_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Resources<Resource<Image>> getAllImageList() {
+	public Resources<Resource<Image>> all() {
 		return imageService.findAll();
 	}
 
 	/**
-	 * Get a image by id
+	 * Get a Image by id
 	 * 
 	 * @param id
-	 * @return one image
+	 * @return a Image
 	 */
 	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_ID_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Resource<Image> getImageById(@PathVariable int id) {
+	public Resource<Image> one(@PathVariable int id) {
 		return imageService.findById(id);
 	}
 
 	/* -------------- Post -------------- */
 
 	/**
-	 * Add a image
+	 * Add a new Image
 	 * 
-	 * @param image
+	 * @param Image
+	 * @return Image
 	 * @throws URISyntaxException
 	 */
 	@PostMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_ADD_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> addImage(@RequestBody Image image) throws URISyntaxException {
+	public ResponseEntity<?> newImage(@RequestBody Image image) throws URISyntaxException {
 		return imageService.save(image);
 	}
 
 	/* -------------- Put -------------- */
 
 	/**
-	 * Update a image
+	 * Update a Image
 	 * 
 	 * @param newImage
 	 * @param id
-	 * @return the update image
+	 * @return the update Image
 	 */
 	@PutMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_PUT_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,15 +102,14 @@ public class ImageController {
 
 	/* -------------- Delete -------------- */
 
-	/**
-	 * Delete a image by id
-	 * 
-	 * @param id
-	 */
+/**
+ * Delete a Image
+ * @param id
+ * @return ResponseEntity without content
+ */
 	@DeleteMapping(value = "${" + GlobalPropertiesPath.ROUTE_IMAGE_DELETE_PATH
 			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteImage(@PathVariable int id) {
-
 		return imageService.deleteById(id);
 	}
 

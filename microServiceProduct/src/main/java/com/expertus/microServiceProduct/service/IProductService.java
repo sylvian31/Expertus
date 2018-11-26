@@ -1,20 +1,50 @@
 package com.expertus.microServiceProduct.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.net.URISyntaxException;
+
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.ResponseEntity;
 
 import com.expertus.microServiceProduct.bean.Product;
 
 public interface IProductService {
-
-	public List<Product> findAll();
 	
-	public Optional<Product> findById(int id);
-	
-	public List<Product> findByNameStartsWithIgnoreCase(String name);
+	/**
+	 * Find all Product in the BDD 
+	 * @return list Product
+	 */
+	public Resources<Resource<Product>> findAll();
 
-	public void deleteById(int id);
+	/**
+	 * Find a Product by ID in the BDD
+	 * @param id
+	 * @return a Product found
+	 */
+	public Resource<Product> findById(int id);
 
-	public Product save(Product product);
-	
+	/**
+	 * Add a new Product in the BDD
+	 * @param product
+	 * @return
+	 * @throws URISyntaxException
+	 */
+	public ResponseEntity<?> save(Product product) throws URISyntaxException;
+
+	/**
+	 * Delete a Product by ID in the BDD
+	 * @param id
+	 * @return ResponseEntity without content
+	 */
+	public ResponseEntity<?> deleteById(int id);
+
+	/**
+	 * Update a product by id in the BDD
+	 * @param product
+	 * @param id
+	 * @return Updated Product
+	 * @throws URISyntaxException
+	 */
+	public ResponseEntity<?> update(Product product, int id) throws URISyntaxException;
+
 }

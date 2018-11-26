@@ -1,3 +1,0 @@
-INSERT into image (id, name, url) VALUES (1, 'Autumn-canada', 'https://www.naturephotographie.com/wp-content/uploads/2016/12/Back-From-The-Edge-Best-Of-2016.jpg')
-INSERT into image (id, name, url) VALUES (2, 'lac-canada', 'https://lemag.nikonclub.fr/wp-content/uploads/2017/07/08.jpg')
-INSERT into image (id, name, url) VALUES (3, 'Montreal', 'https://s3.amazonaws.com/cdn.clearfacts.ca/wp-content/uploads/2017/07/montreal-ville-innovation-newtech-1.jpg')

@@ -1,8 +1,6 @@
 package com.expertus.microServiceImage.service;
 
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
