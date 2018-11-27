@@ -34,10 +34,10 @@ public class OrderService implements IOrderService {
 	@Override
 	public Resources<Resource<Order>> findAll() {
 
-		List<Resource<Order>> orders = orderRepository.findAll().stream().map(orderResourceAssembler::toResource)
+		List<Resource<Order>> lOrders = orderRepository.findAll().stream().map(orderResourceAssembler::toResource)
 				.collect(Collectors.toList());
 
-		return new Resources<>(orders, linkTo(methodOn(OrderController.class).all()).withSelfRel());
+		return new Resources<>(lOrders, linkTo(methodOn(OrderController.class).all()).withSelfRel());
 	}
 
 	@Override
@@ -47,39 +47,39 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public ResponseEntity<Resource<Order>> save(Order order) {
+	public ResponseEntity<Resource<Order>> save(Order pOrder) {
 
-		order.setStatus(Status.IN_PROGRESS);
-		Order newOrder = orderRepository.save(order);
+		pOrder.setStatus(Status.IN_PROGRESS);
+		Order lNewOrder = orderRepository.save(pOrder);
 
-		return ResponseEntity.created(linkTo(methodOn(OrderController.class).one(newOrder.getId())).toUri())
-				.body(orderResourceAssembler.toResource(newOrder));
+		return ResponseEntity.created(linkTo(methodOn(OrderController.class).one(lNewOrder.getId())).toUri())
+				.body(orderResourceAssembler.toResource(lNewOrder));
 	}
 
 	@Override
 	public ResponseEntity<ResourceSupport> cancelById(int id) {
-		Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
+		Order lOrder = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
 
-		if (order.getStatus() == Status.IN_PROGRESS) {
-			order.setStatus(Status.CANCELLED);
-			return ResponseEntity.ok(orderResourceAssembler.toResource(orderRepository.save(order)));
+		if (lOrder.getStatus() == Status.IN_PROGRESS) {
+			lOrder.setStatus(Status.CANCELLED);
+			return ResponseEntity.ok(orderResourceAssembler.toResource(orderRepository.save(lOrder)));
 		}
 
 		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(new VndErrors.VndError("Method not allowed",
-				"You can't cancel an order that is in the " + order.getStatus() + " status"));
+				"You can't cancel an order that is in the " + lOrder.getStatus() + " status"));
 	}
 
 	@Override
-	public ResponseEntity<ResourceSupport> completeById(int id) {
-		Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
+	public ResponseEntity<ResourceSupport> completeById(int pId) {
+		Order lOrder = orderRepository.findById(pId).orElseThrow(() -> new OrderNotFoundException(pId));
 
-		if (order.getStatus() == Status.IN_PROGRESS) {
-			order.setStatus(Status.COMPLETED);
-			return ResponseEntity.ok(orderResourceAssembler.toResource(orderRepository.save(order)));
+		if (lOrder.getStatus() == Status.IN_PROGRESS) {
+			lOrder.setStatus(Status.COMPLETED);
+			return ResponseEntity.ok(orderResourceAssembler.toResource(orderRepository.save(lOrder)));
 		}
 
 		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(new VndErrors.VndError("Method not allowed",
-				"You can't complete an order that is in the " + order.getStatus() + " status"));
+				"You can't complete an order that is in the " + lOrder.getStatus() + " status"));
 	}
 
 }

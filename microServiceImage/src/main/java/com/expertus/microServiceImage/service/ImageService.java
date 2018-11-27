@@ -34,26 +34,26 @@ public class ImageService implements IImageService{
 
 	@Override
 	public Resources<Resource<Image>> findAll() {
-		List<Resource<Image>> images = imageRepository.findAll().stream()
+		List<Resource<Image>> lImages = imageRepository.findAll().stream()
 				.map(imageResourceAssembler::toResource)
 				.collect(Collectors.toList());
 
-			return new Resources<>(images,
+			return new Resources<>(lImages,
 				linkTo(methodOn(ImageController.class).all()).withSelfRel());
 	}
 
 	@Override
 	public Resource<Image> findById(int pId) {
-		Image image = imageRepository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
+		Image lImage = imageRepository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
 
-		return imageResourceAssembler.toResource(image);
+		return imageResourceAssembler.toResource(lImage);
 	}
 	
 	@Override
 	public ResponseEntity<?> save(Image pImage) throws URISyntaxException {
-		Resource<Image> resource = imageResourceAssembler.toResource(imageRepository.save(pImage));
+		Resource<Image> lResource = imageResourceAssembler.toResource(imageRepository.save(pImage));
 
-		return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
+		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class ImageService implements IImageService{
 
 	@Override
 	public ResponseEntity<?> update(Image pNewImage, int pId) throws URISyntaxException {
-		Image updatedImage = imageRepository.findById(pId).map(image -> {
+		Image lUpdatedImage = imageRepository.findById(pId).map(image -> {
 			image.setName(pNewImage.getName());
 			image.setUrl(pNewImage.getUrl());
 			return imageRepository.save(image);
@@ -74,9 +74,9 @@ public class ImageService implements IImageService{
 			return imageRepository.save(pNewImage);
 		});
 
-		Resource<Image> resource = imageResourceAssembler.toResource(updatedImage);
+		Resource<Image> lResource = imageResourceAssembler.toResource(lUpdatedImage);
 
-		return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
+		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
 	}
 
 
