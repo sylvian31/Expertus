@@ -21,17 +21,17 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.expertus.microServiceProduct.GlobalPropertiesPath;
 import com.expertus.microServiceProduct.assembler.ProductResourceAssembler;
 import com.expertus.microServiceProduct.bean.Product;
 import com.expertus.microServiceProduct.bean.ProductWithImage;
+import com.expertus.microServiceProduct.config.GlobalPropertiesPathConfig;
 import com.expertus.microServiceProduct.controller.ProductController;
 import com.expertus.microServiceProduct.exception.ProductNotFoundException;
 import com.expertus.microServiceProduct.repository.ProductRepository;
 
 @Service
 public class ProductService implements IProductService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
 	/** The product repository */
@@ -51,8 +51,8 @@ public class ProductService implements IProductService {
 	public Resources<Resource<Product>> findAll() throws InterruptedException, ExecutionException {
 		List<Product> lProducts = productRepository.findAll();
 		List<CompletableFuture<Resource<Product>>> lProductsWithImageContentFutures = new ArrayList<>();
-        // Start the clock
-        long start = System.currentTimeMillis();
+		// Start the clock
+		long start = System.currentTimeMillis();
 		for (Product product : lProducts) {
 			lProductsWithImageContentFutures.add(createProductWithImageAsync(product));
 		}
@@ -78,7 +78,7 @@ public class ProductService implements IProductService {
 	public Resource<Product> findById(int pId) {
 		Product lProduct = productRepository.findById(pId).orElseThrow(() -> new ProductNotFoundException(pId));
 
-		return productResourceAssembler.toResource(createProductWithImage(lProduct));
+		return createProductWithImage(lProduct);
 	}
 
 	@Override
@@ -110,6 +110,13 @@ public class ProductService implements IProductService {
 		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
 	}
 
+	/**
+	 * Create a Product with a image from to image service to way asynchrone
+	 * 
+	 * @param pProduct
+	 * @return a CompletableFuture to Resources to product
+	 * @throws InterruptedException
+	 */
 	@Async
 	private CompletableFuture<Resource<Product>> createProductWithImageAsync(Product pProduct)
 			throws InterruptedException {
@@ -120,16 +127,27 @@ public class ProductService implements IProductService {
 		return CompletableFuture.completedFuture(productResourceAssembler.toResource(lProductWithImage));
 	}
 
-	private ProductWithImage createProductWithImage(Product pProduct) {
-		ProductWithImage productWithImage = new ProductWithImage(pProduct);
+	/**
+	 * Create a Product with a image from to image service
+	 * 
+	 * @param pProduct
+	 * @return
+	 */
+	private Resource<Product> createProductWithImage(Product pProduct) {
+		ProductWithImage lProductWithImage = new ProductWithImage(pProduct);
 		Object lImage = null;
 		lImage = getImage(pProduct);
-		productWithImage.setImage(lImage);
-		return productWithImage;
+		lProductWithImage.setImage(lImage);
+		return productResourceAssembler.toResource(lProductWithImage);
 	}
 
+	/**
+	 * Request HTTP toward image service
+	 * @param pProduct
+	 * @return restTemplate Object
+	 */
 	private Object getImage(Product pProduct) {
-		return restTemplate.getForObject(GlobalPropertiesPath.URL_IMAGE_SERVICE + pProduct.getIdImage(), Object.class);
+		return restTemplate.getForObject(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE + pProduct.getIdImage(), Object.class);
 	}
 
 }

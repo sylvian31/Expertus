@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expertus.microServiceProduct.GlobalPropertiesPath;
 import com.expertus.microServiceProduct.bean.Product;
+import com.expertus.microServiceProduct.config.GlobalPropertiesPathConfig;
 import com.expertus.microServiceProduct.service.IProductService;
 
 @RestController
@@ -33,7 +33,7 @@ public class ProductController {
 	/** The product service */
 	private final IProductService productService;
 	
-	private final String aze = GlobalPropertiesPath.ROUTE_PRODUCT_PUT;
+	private final String aze = GlobalPropertiesPathConfig.ROUTE_PRODUCT_PUT;
 
 	/**
 	 * Constructor
@@ -53,7 +53,7 @@ public class ProductController {
 	 * 
 	 * @return micro service name
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_PRODUCT_HOME, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_HOME, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String showHome() {
 		return "Hello from Product Service running at port: " + env.getProperty("local.server.port");
 	}
@@ -65,7 +65,7 @@ public class ProductController {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_PRODUCT_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resources<Resource<Product>> all() throws InterruptedException, ExecutionException {
 		return productService.findAll();
 	}
@@ -76,7 +76,7 @@ public class ProductController {
 	 * @param id
 	 * @return a product
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_PRODUCT_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ID, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Product> one(@PathVariable int id) {
 		return productService.findById(id);
 	}
@@ -90,7 +90,7 @@ public class ProductController {
 	 * @return Product
 	 * @throws URISyntaxException
 	 */
-	@PostMapping(value = GlobalPropertiesPath.ROUTE_PRODUCT_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> newProduct(@RequestBody Product product) throws URISyntaxException {
 		return productService.save(product);
 	}
@@ -119,7 +119,7 @@ public class ProductController {
 	 * @param id
 	 * @return ResponseEntity without content
 	 */
-	@DeleteMapping(value = GlobalPropertiesPath.ROUTE_PRODUCT_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteProduct(@PathVariable int id) {
 		return productService.deleteById(id);
 	}

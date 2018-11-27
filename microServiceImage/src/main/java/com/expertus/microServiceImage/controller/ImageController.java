@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expertus.microServiceImage.GlobalPropertiesPath;
 import com.expertus.microServiceImage.bean.Image;
+import com.expertus.microServiceImage.config.GlobalPropertiesPathConfig;
 import com.expertus.microServiceImage.service.IImageService;
 
 @RestController
@@ -49,7 +49,7 @@ public class ImageController {
 	 * 
 	 * @return micro service name
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_HOME, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_HOME, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String showHome() {
 		return "Hello from Image Service running at port: " + env.getProperty("local.server.port");
 	}
@@ -59,7 +59,7 @@ public class ImageController {
 	 * 
 	 * @return list Image
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resources<Resource<Image>> all() {
 		return imageService.findAll();
 	}
@@ -70,7 +70,7 @@ public class ImageController {
 	 * @param id
 	 * @return a Image
 	 */
-	@GetMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ID, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Image> one(@PathVariable int id) {
 		return imageService.findById(id);
 	}
@@ -84,7 +84,7 @@ public class ImageController {
 	 * @return Image
 	 * @throws URISyntaxException
 	 */
-	@PostMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> newImage(@RequestBody Image image) throws URISyntaxException {
 		return imageService.save(image);
 	}
@@ -98,7 +98,7 @@ public class ImageController {
 	 * @param id
 	 * @return the update Image
 	 */
-	@PutMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> replaceImage(@RequestBody Image newImage, @PathVariable int id) throws URISyntaxException {
 		return imageService.update(newImage, id);
 	}
@@ -111,7 +111,7 @@ public class ImageController {
 	 * @param id
 	 * @return ResponseEntity without content
 	 */
-	@DeleteMapping(value = GlobalPropertiesPath.ROUTE_IMAGE_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteImage(@PathVariable int id) {
 		return imageService.deleteById(id);
 	}

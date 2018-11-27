@@ -1,4 +1,4 @@
-package com.expertus.microServiceOrder;
+package com.expertus.microServiceOrder.config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import com.expertus.microServiceOrder.bean.Status;
 import com.expertus.microServiceOrder.repository.OrderRepository;
 
 @Configuration
-public class Database {
+public class DatabaseConfig {
 
 	@Bean
 	CommandLineRunner initDatabase(OrderRepository orderRepository) {

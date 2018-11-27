@@ -1,4 +1,4 @@
-package com.expertus.microServiceProduct;
+package com.expertus.microServiceProduct.config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import com.expertus.microServiceProduct.bean.Product;
 import com.expertus.microServiceProduct.repository.ProductRepository;
 
 @Configuration
-public class Database {
+public class DatabaseConfig {
 	
 	@Bean
 	CommandLineRunner initDatabase(ProductRepository productRepository) {

@@ -1,4 +1,4 @@
-package com.expertus.microServiceImage;
+package com.expertus.microServiceImage.config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import com.expertus.microServiceImage.bean.Image;
 import com.expertus.microServiceImage.repository.ImageRepository;
 
 @Configuration
-public class Database {
+public class DatabaseConfig {
 
 	@Bean
 	CommandLineRunner initDatabase(ImageRepository imageRepository) {
