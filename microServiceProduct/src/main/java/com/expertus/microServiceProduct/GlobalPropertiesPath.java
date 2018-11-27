@@ -1,27 +1,27 @@
 package com.expertus.microServiceProduct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 @Configuration
-@PropertySource("classpath:route.properties")
 public class GlobalPropertiesPath {
-
-	/* ----------------- Path Private ----------------- */
 	
-	private static final String ROUTE_PRODUCT_PATH = "expertus.route.product.";
+	private static final String PRODUCTS = "/products";
 	
-	/* ----------------- Path Public ----------------- */
+	public static final String ROUTE_PRODUCT_HOME = "/";
 	
-	public static final String ROUTE_PRODUCT_HOME_PATH = ROUTE_PRODUCT_PATH + "home";
+	public static final String ROUTE_PRODUCT_ALL = PRODUCTS;
 	
-	public static final String ROUTE_PRODUCT_ALL_PATH = ROUTE_PRODUCT_PATH + "all";
+	public static final String ROUTE_PRODUCT_ID = PRODUCTS +"/{id}";
 	
-	public static final String ROUTE_PRODUCT_ID_PATH = ROUTE_PRODUCT_PATH + "id";
+	public static final String ROUTE_PRODUCT_DELETE =  PRODUCTS + "/add";
 	
-	public static final String ROUTE_PRODUCT_DELETE_PATH = ROUTE_PRODUCT_PATH + "delete";
+	public static final String ROUTE_PRODUCT_ADD = PRODUCTS + "/update";
 	
-	public static final String ROUTE_PRODUCT_ADD_PATH = ROUTE_PRODUCT_PATH + "add";
+	public static final String ROUTE_PRODUCT_PUT = PRODUCTS + "/delete";
 	
-	public static final String ROUTE_PRODUCT_PUT_PATH = ROUTE_PRODUCT_PATH + "update";
+	public static final String URL_IMAGE_SERVICE = "http://image-service/images/";
 }

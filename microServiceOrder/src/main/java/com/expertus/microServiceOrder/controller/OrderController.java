@@ -17,27 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.expertus.microServiceOrder.GlobalPropertiesPath;
 import com.expertus.microServiceOrder.bean.Order;
-import com.expertus.microServiceOrder.service.OrderService;
+import com.expertus.microServiceOrder.service.IOrderService;
 
 @RestController
 public class OrderController {
-	
+
 	/**
 	 * The Environment
 	 */
-	private @Autowired Environment env;
+	private final Environment env;
 
 	/** The order service */
-	private final OrderService orderService;
+	private final IOrderService orderService;
 
 	/**
 	 * Constructor
+	 * 
 	 * @param pOrderService
 	 */
-	public OrderController(OrderService pOrderService) {
+	public OrderController(IOrderService pOrderService, Environment pEnv) {
 		this.orderService = pOrderService;
+		this.env = pEnv;
 	}
-	
+
 	/* -------------- Get -------------- */
 
 	/**
@@ -45,8 +47,7 @@ public class OrderController {
 	 * 
 	 * @return service name
 	 */
-	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_HOME_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPath.ROUTE_ORDER_HOME, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String home() {
 		return "Hello from Order Service running at port: " + env.getProperty("local.server.port");
 	}
@@ -56,8 +57,7 @@ public class OrderController {
 	 * 
 	 * @return list order
 	 */
-	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_ALL_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPath.ROUTE_ORDER_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resources<Resource<Order>> all() {
 		return orderService.findAll();
 	}
@@ -68,12 +68,11 @@ public class OrderController {
 	 * @param id
 	 * @return a order
 	 */
-	@GetMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_ID_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = GlobalPropertiesPath.ROUTE_ORDER_ID, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Order> one(@PathVariable int id) {
 		return orderService.findById(id);
 	}
-	
+
 	/* -------------- Post -------------- */
 	/**
 	 * Add a new Order
@@ -81,8 +80,7 @@ public class OrderController {
 	 * @param order
 	 * @return
 	 */
-	@PostMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_ADD_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = GlobalPropertiesPath.ROUTE_ORDER_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Resource<Order>> newOrder(@RequestBody Order order) {
 		return orderService.save(order);
 	}
@@ -93,8 +91,7 @@ public class OrderController {
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_CANCEL_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = GlobalPropertiesPath.ROUTE_ORDER_CANCEL, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResourceSupport> cancel(@PathVariable int id) {
 		return orderService.cancelById(id);
 	}
@@ -105,8 +102,7 @@ public class OrderController {
 	 * @param id
 	 * @return Order
 	 */
-	@PutMapping(value = "${" + GlobalPropertiesPath.ROUTE_ORDER_COMPLETE_PATH
-			+ "}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = GlobalPropertiesPath.ROUTE_ORDER_COMPLETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResourceSupport> complete(@PathVariable int id) {
 		return orderService.completeById(id);
 	}

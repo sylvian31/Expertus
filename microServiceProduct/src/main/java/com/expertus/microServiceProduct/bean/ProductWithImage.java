@@ -1,18 +1,18 @@
 package com.expertus.microServiceProduct.bean;
 
-public class ProductWithImages extends Product {
+public class ProductWithImage extends Product {
 
 	private Object image;
 
-	public ProductWithImages() {
+	public ProductWithImage() {
 		super();
 	}
 
-	public ProductWithImages(Product pProduct) {
+	public ProductWithImage(Product pProduct) {
 		super(pProduct);
 	}
 
-	public ProductWithImages(Product pProduct, Object image) {
+	public ProductWithImage(Product pProduct, Object image) {
 		super(pProduct);
 		this.image = image;
 	}

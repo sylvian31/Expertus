@@ -4,25 +4,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:route.properties")
 public class GlobalPropertiesPath {
 
 	/* ----------------- Path Private ----------------- */
 	
-	private static final String ROUTE_ORDER_PATH = "expertus.route.order.";
+	private static final String ORDER = "/orders";
 	
 	/* ----------------- Path Public ----------------- */
 	
-	public static final String ROUTE_ORDER_HOME_PATH = ROUTE_ORDER_PATH + "home";
+	public static final String ROUTE_ORDER_HOME = "/";
 	
-	public static final String ROUTE_ORDER_ALL_PATH = ROUTE_ORDER_PATH + "all";
+	public static final String ROUTE_ORDER_ALL = ORDER;
 	
-	public static final String ROUTE_ORDER_ID_PATH = ROUTE_ORDER_PATH + "id";
+	public static final String ROUTE_ORDER_ID = ORDER + "/{id}";
 	
-	public static final String ROUTE_ORDER_CANCEL_PATH = ROUTE_ORDER_PATH + "delete";
+	public static final String ROUTE_ORDER_CANCEL = ORDER + "/delete";
 	
-	public static final String ROUTE_ORDER_ADD_PATH = ROUTE_ORDER_PATH + "add";
+	public static final String ROUTE_ORDER_ADD = ORDER + "/add";
 	
-	public static final String ROUTE_ORDER_COMPLETE_PATH = ROUTE_ORDER_PATH + "update";
+	public static final String ROUTE_ORDER_COMPLETE = ORDER + "/update";
 	
 }

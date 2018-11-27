@@ -9,7 +9,7 @@ import com.expertus.microServiceProduct.repository.ProductRepository;
 
 @Configuration
 public class Database {
-
+	
 	@Bean
 	CommandLineRunner initDatabase(ProductRepository productRepository) {
 		productRepository.save(new Product("MacBook Pro", 1400.50, 1));
@@ -17,4 +17,5 @@ public class Database {
 		productRepository.save(new Product("Clavier", 37.58, 3));
 		return null;
 	}
+
 }

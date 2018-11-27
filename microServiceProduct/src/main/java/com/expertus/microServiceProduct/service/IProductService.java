@@ -1,6 +1,8 @@
 package com.expertus.microServiceProduct.service;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -13,8 +15,10 @@ public interface IProductService {
 	/**
 	 * Find all Product in the BDD 
 	 * @return list Product
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
-	public Resources<Resource<Product>> findAll();
+	public Resources<Resource<Product>> findAll() throws InterruptedException, ExecutionException;
 
 	/**
 	 * Find a Product by ID in the BDD
