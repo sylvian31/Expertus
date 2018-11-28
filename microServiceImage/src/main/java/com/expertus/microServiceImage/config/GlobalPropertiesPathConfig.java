@@ -17,10 +17,10 @@ public class GlobalPropertiesPathConfig {
 
 	public static final String ROUTE_IMAGE_ID = IMAGES + "/{id}";
 
-	public static final String ROUTE_IMAGE_DELETE = IMAGES + "/delete";
+	public static final String ROUTE_IMAGE_DELETE = IMAGES + "/delete/{id}";
 
 	public static final String ROUTE_IMAGE_ADD = IMAGES + "/add";
 
-	public static final String ROUTE_IMAGE_PUT = IMAGES + "/update";
+	public static final String ROUTE_IMAGE_PUT = IMAGES + "/update/{id}";
 
 }

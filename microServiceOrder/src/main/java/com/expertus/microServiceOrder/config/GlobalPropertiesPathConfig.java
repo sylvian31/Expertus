@@ -17,10 +17,10 @@ public class GlobalPropertiesPathConfig {
 
 	public static final String ROUTE_ORDER_ID = ORDER + "/{id}";
 
-	public static final String ROUTE_ORDER_CANCEL = ORDER + "/delete";
+	public static final String ROUTE_ORDER_CANCEL = ORDER + "/delete/{id}";
 
 	public static final String ROUTE_ORDER_ADD = ORDER + "/add";
 
-	public static final String ROUTE_ORDER_COMPLETE = ORDER + "/update";
+	public static final String ROUTE_ORDER_COMPLETE = ORDER + "/update/{id}";
 
 }

@@ -15,9 +15,9 @@ public class GlobalPropertiesPathConfig {
 
 	public static final String ROUTE_PRODUCT_DELETE = PRODUCTS + "/add";
 
-	public static final String ROUTE_PRODUCT_ADD = PRODUCTS + "/update";
+	public static final String ROUTE_PRODUCT_ADD = PRODUCTS + "/update/{id}";
 
-	public static final String ROUTE_PRODUCT_PUT = PRODUCTS + "/delete";
+	public static final String ROUTE_PRODUCT_PUT = PRODUCTS + "/delete/{id}";
 
 	public static final String URL_IMAGE_SERVICE = "http://image-service/images/";
 }
