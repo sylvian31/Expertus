@@ -1,8 +1,9 @@
-package com.expertus.main.service;
+package com.expertus.expertusprojet.service;
 
 import java.util.Collection;
 
 import org.springframework.hateoas.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.expertus.main.bean.Product;
+import com.expertus.expertusprojet.bean.Product;
+
 
 public interface IProductService {
 
     @GetMapping(value = "/products")
-    public Collection<Product> findAll();
+    public ResponseEntity<Product[]> findAll();
     
     @GetMapping(value = "/products/{id}")
     public Product findById(@PathVariable("id") Long id);

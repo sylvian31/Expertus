@@ -12,6 +12,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -22,6 +23,7 @@ import com.expertus.microServiceProduct.service.IProductService;
 @EnableJpaRepositories("com.expertus.microServiceProduct.repository")
 @EnableEurekaClient
 @EnableAsync
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class MicroServiceProductApplication implements CommandLineRunner {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

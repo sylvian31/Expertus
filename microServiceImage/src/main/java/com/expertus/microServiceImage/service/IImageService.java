@@ -1,6 +1,7 @@
 package com.expertus.microServiceImage.service;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -10,14 +11,14 @@ import com.expertus.microServiceImage.bean.Image;
 
 public interface IImageService {
 
-	public Resources<Resource<Image>> findAll();
+	public List<Image> findAll();
 	
-	public Resource<Image> findById(int id);
+	public Image findById(int id);
 	
-	public ResponseEntity<?> save(Image image) throws URISyntaxException;
+	public Image save(Image image) throws URISyntaxException;
 	
-	public ResponseEntity<?> deleteById(int id);
+	public void deleteById(int id);
 
-	public ResponseEntity<?> update(Image image, int id) throws URISyntaxException;
+	public Image update(Image image, int id) throws URISyntaxException;
 	
 }

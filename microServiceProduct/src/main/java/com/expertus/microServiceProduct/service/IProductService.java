@@ -1,6 +1,7 @@
 package com.expertus.microServiceProduct.service;
 
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -18,14 +19,14 @@ public interface IProductService {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	public Resources<Resource<Product>> findAll() throws InterruptedException, ExecutionException;
+	public List<Product> findAll() throws InterruptedException, ExecutionException;
 
 	/**
 	 * Find a Product by ID in the BDD
 	 * @param id
 	 * @return a Product found
 	 */
-	public Resource<Product> findById(int id);
+	public Product findById(int id);
 
 	/**
 	 * Add a new Product in the BDD
@@ -33,14 +34,14 @@ public interface IProductService {
 	 * @return
 	 * @throws URISyntaxException
 	 */
-	public ResponseEntity<?> save(Product product) throws URISyntaxException;
+	public Product save(Product product) throws URISyntaxException;
 
 	/**
 	 * Delete a Product by ID in the BDD
 	 * @param id
 	 * @return ResponseEntity without content
 	 */
-	public ResponseEntity<?> deleteById(int id);
+	public void deleteById(int id);
 
 	/**
 	 * Update a product by id in the BDD
@@ -49,6 +50,6 @@ public interface IProductService {
 	 * @return Updated Product
 	 * @throws URISyntaxException
 	 */
-	public ResponseEntity<?> update(Product product, int id) throws URISyntaxException;
+	public Product update(Product product, int id) throws URISyntaxException;
 
 }

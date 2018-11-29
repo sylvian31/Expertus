@@ -1,13 +1,10 @@
 package com.expertus.microServiceProduct.controller;
 
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +29,7 @@ public class ProductController {
 
 	/** The product service */
 	private final IProductService productService;
-	
+
 	private final String aze = GlobalPropertiesPathConfig.ROUTE_PRODUCT_PUT;
 
 	/**
@@ -62,11 +59,11 @@ public class ProductController {
 	 * Get all product
 	 * 
 	 * @return list Product
-	 * @throws ExecutionException 
-	 * @throws InterruptedException 
+	 * @throws ExecutionException
+	 * @throws InterruptedException
 	 */
 	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Resources<Resource<Product>> all() throws InterruptedException, ExecutionException {
+	public List<Product> all() throws InterruptedException, ExecutionException {
 		return productService.findAll();
 	}
 
@@ -77,7 +74,7 @@ public class ProductController {
 	 * @return a product
 	 */
 	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ID, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Resource<Product> one(@PathVariable int id) {
+	public Product one(@PathVariable int id) {
 		return productService.findById(id);
 	}
 
@@ -91,7 +88,7 @@ public class ProductController {
 	 * @throws URISyntaxException
 	 */
 	@PostMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> newProduct(@RequestBody Product product) throws URISyntaxException {
+	public Product newProduct(@RequestBody Product product) throws URISyntaxException {
 		return productService.save(product);
 	}
 
@@ -106,7 +103,7 @@ public class ProductController {
 	 * @throws URISyntaxException
 	 */
 	@PutMapping(value = aze, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> replaceProduct(@RequestBody Product newProduct, @PathVariable int id)
+	public Product replaceProduct(@RequestBody Product newProduct, @PathVariable int id)
 			throws URISyntaxException {
 		return productService.update(newProduct, id);
 	}
@@ -120,8 +117,8 @@ public class ProductController {
 	 * @return ResponseEntity without content
 	 */
 	@DeleteMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> deleteProduct(@PathVariable int id) {
-		return productService.deleteById(id);
+	public void deleteProduct(@PathVariable int id) {
+		productService.deleteById(id);
 	}
 
 }

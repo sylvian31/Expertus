@@ -33,38 +33,27 @@ public class ImageService implements IImageService{
     
 
 	@Override
-	public Resources<Resource<Image>> findAll() {
-		List<Resource<Image>> lImages = imageRepository.findAll().stream()
-				.map(imageResourceAssembler::toResource)
-				.collect(Collectors.toList());
-
-			return new Resources<>(lImages,
-				linkTo(methodOn(ImageController.class).all()).withSelfRel());
+	public List<Image> findAll() {
+		return imageRepository.findAll();
 	}
 
 	@Override
-	public Resource<Image> findById(int pId) {
-		Image lImage = imageRepository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
-
-		return imageResourceAssembler.toResource(lImage);
+	public Image findById(int pId) {
+		return imageRepository.findById(pId).orElseThrow(() -> new ImageNotFoundException(pId));
 	}
 	
 	@Override
-	public ResponseEntity<?> save(Image pImage) throws URISyntaxException {
-		Resource<Image> lResource = imageResourceAssembler.toResource(imageRepository.save(pImage));
-
-		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
+	public Image save(Image pImage) throws URISyntaxException {
+		return imageRepository.save(pImage);
 	}
 
 	@Override
-	public ResponseEntity<?> deleteById(int pId) {
+	public void deleteById(int pId) {
 		imageRepository.deleteById(pId);
-		
-		return ResponseEntity.noContent().build();
 	}
 
 	@Override
-	public ResponseEntity<?> update(Image pNewImage, int pId) throws URISyntaxException {
+	public Image update(Image pNewImage, int pId) throws URISyntaxException {
 		Image lUpdatedImage = imageRepository.findById(pId).map(image -> {
 			image.setName(pNewImage.getName());
 			image.setUrl(pNewImage.getUrl());
@@ -74,9 +63,7 @@ public class ImageService implements IImageService{
 			return imageRepository.save(pNewImage);
 		});
 
-		Resource<Image> lResource = imageResourceAssembler.toResource(lUpdatedImage);
-
-		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
+		return lUpdatedImage;
 	}
 
 

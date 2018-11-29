@@ -48,9 +48,9 @@ public class ProductService implements IProductService {
 	private ProductResourceAssembler productResourceAssembler;
 
 	@Override
-	public Resources<Resource<Product>> findAll() throws InterruptedException, ExecutionException {
+	public List<Product> findAll() throws InterruptedException, ExecutionException {
 		List<Product> lProducts = productRepository.findAll();
-		List<CompletableFuture<Resource<Product>>> lProductsWithImageContentFutures = new ArrayList<>();
+		List<CompletableFuture<Product>> lProductsWithImageContentFutures = new ArrayList<>();
 		// Start the clock
 		long start = System.currentTimeMillis();
 		for (Product product : lProducts) {
@@ -63,40 +63,36 @@ public class ProductService implements IProductService {
 
 		// When all the Futures are completed, call `future.join()` to get their results
 		// and collect the results in a list -
-		CompletableFuture<List<Resource<Product>>> lResourceProductContentsFuture = lAllFutures.thenApply(v -> {
+		CompletableFuture<List<Product>> lResourceProductContentsFuture = lAllFutures.thenApply(v -> {
 			return lProductsWithImageContentFutures.stream()
 					.map(lProductsWithImageContentFuture -> lProductsWithImageContentFuture.join())
 					.collect(Collectors.toList());
 		});
 		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
 
-		return new Resources<>(lResourceProductContentsFuture.get(),
-				linkTo(methodOn(ProductController.class).all()).withSelfRel());
+		return lResourceProductContentsFuture.get();
 	}
 
 	@Override
-	public Resource<Product> findById(int pId) {
+	public Product findById(int pId) {
 		Product lProduct = productRepository.findById(pId).orElseThrow(() -> new ProductNotFoundException(pId));
 
 		return createProductWithImage(lProduct);
 	}
 
 	@Override
-	public ResponseEntity<?> save(Product pProduct) throws URISyntaxException {
-		Resource<Product> lResource = productResourceAssembler.toResource(productRepository.save(pProduct));
+	public Product save(Product pProduct) throws URISyntaxException {
+		return productRepository.save(pProduct);
 
-		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
 	}
 
 	@Override
-	public ResponseEntity<?> deleteById(int pId) {
+	public void deleteById(int pId) {
 		productRepository.deleteById(pId);
-
-		return ResponseEntity.noContent().build();
 	}
 
 	@Override
-	public ResponseEntity<?> update(Product pNewProduct, int pId) throws URISyntaxException {
+	public Product update(Product pNewProduct, int pId) throws URISyntaxException {
 		Product lUpdatedProduct = productRepository.findById(pId).map(product -> {
 			product.setName(pNewProduct.getName());
 			product.setPrice(pNewProduct.getPrice());
@@ -106,8 +102,7 @@ public class ProductService implements IProductService {
 			return productRepository.save(pNewProduct);
 		});
 
-		Resource<Product> lResource = productResourceAssembler.toResource(lUpdatedProduct);
-		return ResponseEntity.created(new URI(lResource.getId().expand().getHref())).body(lResource);
+		return lUpdatedProduct;
 	}
 
 	/**
@@ -118,13 +113,13 @@ public class ProductService implements IProductService {
 	 * @throws InterruptedException
 	 */
 	@Async
-	private CompletableFuture<Resource<Product>> createProductWithImageAsync(Product pProduct)
+	private CompletableFuture<Product> createProductWithImageAsync(Product pProduct)
 			throws InterruptedException {
 		ProductWithImage lProductWithImage = new ProductWithImage(pProduct);
 		Object lImage = null;
 		lImage = getImage(pProduct);
 		lProductWithImage.setImage(lImage);
-		return CompletableFuture.completedFuture(productResourceAssembler.toResource(lProductWithImage));
+		return CompletableFuture.completedFuture(lProductWithImage);
 	}
 
 	/**
@@ -133,12 +128,12 @@ public class ProductService implements IProductService {
 	 * @param pProduct
 	 * @return
 	 */
-	private Resource<Product> createProductWithImage(Product pProduct) {
+	private Product createProductWithImage(Product pProduct) {
 		ProductWithImage lProductWithImage = new ProductWithImage(pProduct);
 		Object lImage = null;
 		lImage = getImage(pProduct);
 		lProductWithImage.setImage(lImage);
-		return productResourceAssembler.toResource(lProductWithImage);
+		return lProductWithImage;
 	}
 
 	/**

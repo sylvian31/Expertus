@@ -1,30 +1,49 @@
 package com.expertus.expertusprojet.bean;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
-public class Image {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-	private int id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Image implements Serializable {
 
-	@NotNull
+	private Long id;
+
 	private String name;
-	
-	@NotNull
+
 	private String url;
 	
-
-	public Image(int pId, @NotNull String pName, @NotNull String pUrl) {
-		super();
-		this.id = pId;
-		this.name = pName;
-		this.url = pUrl;
+	public Image() {
+		
 	}
 
-	public int getId() {
+	@Override
+	public boolean equals(Object pObject) {
+		if (this == pObject)
+			return true;
+		if (pObject == null || getClass() != pObject.getClass())
+			return false;
+
+		Image lImage = (Image) pObject;
+
+		return id != null ? id.equals(lImage.id) : lImage.id == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
+
+	/* -------------- Getter & Setter -------------- */
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int pId) {
+	public void setId(Long pId) {
 		this.id = pId;
 	}
 
@@ -42,6 +61,11 @@ public class Image {
 
 	public void setUrl(String pUrl) {
 		this.url = pUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", name=" + name + ", url=" + url + "]";
 	}
 	
 	

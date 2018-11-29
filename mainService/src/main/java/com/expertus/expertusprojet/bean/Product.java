@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product implements Serializable {
 
 	private Long id;
@@ -17,13 +20,16 @@ public class Product implements Serializable {
 	private double price;
 
 	private Image image;
+	
+	public Product() {
 
-	public Product(Long pId, @NotNull @Size(min = 1) String pName, @NotNull double pPrice, Image pImage) {
+	}
+
+	public Product(Long pId, @NotNull @Size(min = 1) String pName, @NotNull double pPrice) {
 		super();
 		this.id = pId;
 		this.name = pName;
 		this.price = pPrice;
-		this.image = pImage;
 	}
 	
     @Override
