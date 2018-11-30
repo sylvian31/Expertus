@@ -71,6 +71,19 @@ public class ImageController {
 	public Image one(@PathVariable int id) {
 		return imageService.findById(id);
 	}
+	
+	/**
+	 * Get a Image by idProduct
+	 * 
+	 * @param idProduct
+	 * @return a Image
+	 */
+	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ID_PRODUCT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Image oneByIdProduct(@PathVariable int id) {
+		return imageService.findByIdProduct(id);
+	}
+	
+	
 
 	/* -------------- Post -------------- */
 

@@ -12,6 +12,7 @@ public class Image {
 	private @Id	@GeneratedValue int id;
 	private String name;
 	private String url;
+	private int idProduct;
 	
 	/* ------------- Constructor -------------*/
 	
@@ -19,17 +20,11 @@ public class Image {
 		super();
 	}
 
-	public Image(String pName, String pUrl) {
+	public Image(String pName, String pUrl, int pIdProduct) {
 		super();
 		this.name = pName;
 		this.url = pUrl;
-	}
-
-	public Image(int pId, String pName, String pUrl) {
-		super();
-		this.id = pId;
-		this.name = pName;
-		this.url = pUrl;
+		this.idProduct = pIdProduct;
 	}
 	
 	/* ------------- Getter & Setter -------------*/
@@ -56,6 +51,14 @@ public class Image {
 
 	public void setUrl(String pUrl) {
 		this.url = pUrl;
+	}
+	
+	public int getIdProduct() {
+		return idProduct;
+	}
+
+	public void setIdProduct(int idProduct) {
+		this.idProduct = idProduct;
 	}
 
 	@Override

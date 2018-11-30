@@ -16,6 +16,8 @@ public class GlobalPropertiesPathConfig {
 	public static final String ROUTE_IMAGE_ALL = IMAGES;
 
 	public static final String ROUTE_IMAGE_ID = IMAGES + "/{id}";
+	
+	public static final String ROUTE_IMAGE_ID_PRODUCT = IMAGES + "/product/{id}";
 
 	public static final String ROUTE_IMAGE_DELETE = IMAGES + "/delete/{id}";
 

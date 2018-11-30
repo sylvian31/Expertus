@@ -43,6 +43,11 @@ public class ImageService implements IImageService{
 	}
 	
 	@Override
+	public Image findByIdProduct(int idProduct) {
+		return imageRepository.findByIdProduct(idProduct).orElseThrow(() -> new ImageNotFoundException(idProduct));
+	}
+	
+	@Override
 	public Image save(Image pImage) throws URISyntaxException {
 		return imageRepository.save(pImage);
 	}
@@ -65,7 +70,5 @@ public class ImageService implements IImageService{
 
 		return lUpdatedImage;
 	}
-
-
 
 }

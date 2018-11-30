@@ -13,11 +13,13 @@ public class GlobalPropertiesPathConfig {
 
 	public static final String ROUTE_PRODUCT_ID = PRODUCTS + "/{id}";
 
-	public static final String ROUTE_PRODUCT_DELETE = PRODUCTS + "/add";
+	public static final String ROUTE_PRODUCT_DELETE = PRODUCTS + "/delete/{id}";
 
-	public static final String ROUTE_PRODUCT_ADD = PRODUCTS + "/update/{id}";
+	public static final String ROUTE_PRODUCT_ADD = PRODUCTS + "/add";
 
-	public static final String ROUTE_PRODUCT_PUT = PRODUCTS + "/delete/{id}";
+	public static final String ROUTE_PRODUCT_PUT = PRODUCTS + "/update/{id}";
 
 	public static final String URL_IMAGE_SERVICE = "http://image-service/images/";
+	
+	public static final String URL_IMAGE_SERVICE_ID_PRODUCT = URL_IMAGE_SERVICE + "product/";
 }

@@ -1,9 +1,5 @@
 package com.expertus.microServiceProduct.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +10,13 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.expertus.microServiceProduct.assembler.ProductResourceAssembler;
 import com.expertus.microServiceProduct.bean.Product;
-import com.expertus.microServiceProduct.bean.ProductWithImage;
 import com.expertus.microServiceProduct.config.GlobalPropertiesPathConfig;
-import com.expertus.microServiceProduct.controller.ProductController;
 import com.expertus.microServiceProduct.exception.ProductNotFoundException;
 import com.expertus.microServiceProduct.repository.ProductRepository;
 
@@ -113,13 +104,11 @@ public class ProductService implements IProductService {
 	 * @throws InterruptedException
 	 */
 	@Async
-	private CompletableFuture<Product> createProductWithImageAsync(Product pProduct)
-			throws InterruptedException {
-		ProductWithImage lProductWithImage = new ProductWithImage(pProduct);
+	private CompletableFuture<Product> createProductWithImageAsync(Product pProduct) throws InterruptedException {
 		Object lImage = null;
 		lImage = getImage(pProduct);
-		lProductWithImage.setImage(lImage);
-		return CompletableFuture.completedFuture(lProductWithImage);
+		pProduct.setImage(lImage);
+		return CompletableFuture.completedFuture(pProduct);
 	}
 
 	/**
@@ -129,20 +118,20 @@ public class ProductService implements IProductService {
 	 * @return
 	 */
 	private Product createProductWithImage(Product pProduct) {
-		ProductWithImage lProductWithImage = new ProductWithImage(pProduct);
 		Object lImage = null;
 		lImage = getImage(pProduct);
-		lProductWithImage.setImage(lImage);
-		return lProductWithImage;
+		pProduct.setImage(lImage);
+		return pProduct;
 	}
 
 	/**
 	 * Request HTTP toward image service
+	 * 
 	 * @param pProduct
 	 * @return restTemplate Object
 	 */
 	private Object getImage(Product pProduct) {
-		return restTemplate.getForObject(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE + pProduct.getIdImage(), Object.class);
+		return restTemplate.getForObject(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_ID_PRODUCT + pProduct.getId(), Object.class);
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -103,8 +102,7 @@ public class ProductController {
 	 * @throws URISyntaxException
 	 */
 	@PutMapping(value = aze, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Product replaceProduct(@RequestBody Product newProduct, @PathVariable int id)
-			throws URISyntaxException {
+	public Product replaceProduct(@RequestBody Product newProduct, @PathVariable int id) throws URISyntaxException {
 		return productService.update(newProduct, id);
 	}
 

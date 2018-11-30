@@ -3,6 +3,7 @@ package com.expertus.microServiceProduct.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Product {
@@ -12,7 +13,7 @@ public class Product {
 	private @Id @GeneratedValue int id;
 	private String name;
 	private double price;
-	private int IdImage;
+	private @Transient Object image;
 
 	/* ------------- Constructor ------------- */
 
@@ -25,14 +26,12 @@ public class Product {
 		this.id = pProduct.getId();
 		this.name = pProduct.getName();
 		this.price = pProduct.getPrice();
-		this.IdImage = pProduct.getIdImage();
 	}
 
 	public Product(String pName, double pPrice, int pIdImage) {
 		super();
 		this.name = pName;
 		this.price = pPrice;
-		this.IdImage = pIdImage;
 	}
 
 	/* ------------- Getter & Setter ------------- */
@@ -60,13 +59,13 @@ public class Product {
 	public void setPrice(double pPrice) {
 		this.price = pPrice;
 	}
-
-	public int getIdImage() {
-		return IdImage;
+	
+	public Object getImage() {
+		return image;
 	}
 
-	public void setIdImage(int pIdImage) {
-		IdImage = pIdImage;
+	public void setImage(Object image) {
+		this.image = image;
 	}
 
 	@Override

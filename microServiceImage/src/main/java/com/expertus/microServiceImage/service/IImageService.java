@@ -20,5 +20,7 @@ public interface IImageService {
 	public void deleteById(int id);
 
 	public Image update(Image image, int id) throws URISyntaxException;
+
+	public Image findByIdProduct(int idProduct);
 	
 }
