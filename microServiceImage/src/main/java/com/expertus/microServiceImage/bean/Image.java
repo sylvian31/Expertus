@@ -66,4 +66,6 @@ public class Image {
 		return "Image [id=" + id + ", name=" + name + ", url=" + url + "]";
 	}
 	
+	
+	
 }

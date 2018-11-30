@@ -2,6 +2,7 @@ package com.expertus.microServiceImage.service;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -21,6 +22,6 @@ public interface IImageService {
 
 	public Image update(Image image, int id) throws URISyntaxException;
 
-	public Image findByIdProduct(int idProduct);
+	public Optional<Image> findByIdProduct(int idProduct);
 	
 }

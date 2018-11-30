@@ -1,22 +1,13 @@
 package com.expertus.microServiceImage.service;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.expertus.microServiceImage.assembler.ImageResourceAssembler;
 import com.expertus.microServiceImage.bean.Image;
-import com.expertus.microServiceImage.controller.ImageController;
 import com.expertus.microServiceImage.exception.ImageNotFoundException;
 import com.expertus.microServiceImage.repository.ImageRepository;
 
@@ -27,11 +18,6 @@ public class ImageService implements IImageService{
     @Autowired
     private ImageRepository imageRepository;
     
-    /** The Image resource assembler */
-    @Autowired
-    private ImageResourceAssembler imageResourceAssembler;
-    
-
 	@Override
 	public List<Image> findAll() {
 		return imageRepository.findAll();
@@ -43,8 +29,8 @@ public class ImageService implements IImageService{
 	}
 	
 	@Override
-	public Image findByIdProduct(int idProduct) {
-		return imageRepository.findByIdProduct(idProduct).orElseThrow(() -> new ImageNotFoundException(idProduct));
+	public Optional<Image> findByIdProduct(int idProduct) {
+		return imageRepository.findByIdProduct(idProduct);
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package com.expertus.microServiceImage.controller;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -79,7 +80,7 @@ public class ImageController {
 	 * @return a Image
 	 */
 	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ID_PRODUCT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Image oneByIdProduct(@PathVariable int id) {
+	public Optional<Image> oneByIdProduct(@PathVariable int id) {
 		return imageService.findByIdProduct(id);
 	}
 	

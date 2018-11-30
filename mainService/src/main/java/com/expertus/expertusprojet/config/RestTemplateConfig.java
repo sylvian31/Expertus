@@ -1,4 +1,4 @@
-package com.expertus.expertusprojet;
+package com.expertus.expertusprojet.config;
 
 import java.util.List;
 

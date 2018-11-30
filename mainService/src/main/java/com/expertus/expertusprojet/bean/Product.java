@@ -19,6 +19,7 @@ public class Product implements Serializable {
 	@NotNull
 	private double price;
 
+	@NotNull
 	private Image image;
 	
 	public Product() {
@@ -84,5 +85,12 @@ public class Product implements Serializable {
 	public void setImage(Image pImage) {
 		this.image = pImage;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + "]";
+	}
+	
+	
 
 }
