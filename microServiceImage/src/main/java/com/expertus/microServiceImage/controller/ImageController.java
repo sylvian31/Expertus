@@ -80,7 +80,7 @@ public class ImageController {
 	 * @return a Image
 	 */
 	@GetMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ID_PRODUCT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Optional<Image> oneByIdProduct(@PathVariable int id) {
+	public Optional<List<Image>> oneByIdProduct(@PathVariable int id) {
 		return imageService.findByIdProduct(id);
 	}
 	
@@ -97,6 +97,19 @@ public class ImageController {
 	 */
 	@PostMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Image newImage(@RequestBody Image image) throws URISyntaxException {
+		return imageService.save(image);
+	}
+	
+	/**
+	 * Add a new Image 
+	 * 
+	 * @param Image
+	 * @return Image
+	 * @throws URISyntaxException
+	 */
+	@PostMapping(value = GlobalPropertiesPathConfig.ROUTE_IMAGE_ADD_WITH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Image newImageWithIdProduct(@RequestBody Image image, @PathVariable int id) throws URISyntaxException {
+		image.setIdProduct(id);
 		return imageService.save(image);
 	}
 

@@ -21,6 +21,8 @@ public class GlobalPropertiesPath {
 
 	public static final String LANGUAGE_HEADER_TITRE_PATH = LANGUAGE_HEADER_PATH + "titre";
 	
+	public static final int NB_TEXTFIELD_INIT = 3;
+	
 	/* ----------------- Url microService Product ----------------- */
 	
 	private static final String URL_PRODUCT_MICRO_SERVICE = "http://localhost:8100/";

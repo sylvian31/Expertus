@@ -1,5 +1,7 @@
 package com.expertus.microServiceProduct.bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +15,7 @@ public class Product {
 	private @Id @GeneratedValue int id;
 	private String name;
 	private double price;
-	private @Transient Object image;
+	private @Transient List<Object> image;
 
 	/* ------------- Constructor ------------- */
 
@@ -60,11 +62,11 @@ public class Product {
 		this.price = pPrice;
 	}
 	
-	public Object getImage() {
+	public List<Object> getImage() {
 		return image;
 	}
 
-	public void setImage(Object image) {
+	public void setImage(List<Object> image) {
 		this.image = image;
 	}
 

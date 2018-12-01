@@ -10,7 +10,6 @@ public class Image {
 	/* ------------- Fields -------------*/ 
 	
 	private @Id	@GeneratedValue int id;
-	private String name;
 	private String url;
 	private int idProduct;
 	
@@ -20,9 +19,8 @@ public class Image {
 		super();
 	}
 
-	public Image(String pName, String pUrl, int pIdProduct) {
+	public Image(String pUrl, int pIdProduct) {
 		super();
-		this.name = pName;
 		this.url = pUrl;
 		this.idProduct = pIdProduct;
 	}
@@ -35,14 +33,6 @@ public class Image {
 	
 	public void setId(int pId) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String pName) {
-		this.name = pName;
 	}
 
 	public String getUrl() {
@@ -63,7 +53,7 @@ public class Image {
 
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", url=" + url + "]";
+		return "Image [id=" + id + ", url=" + url + "]";
 	}
 	
 	

@@ -55,7 +55,6 @@ public class ProductService implements IProductService {
 					.map(lProductsWithImageContentFuture -> lProductsWithImageContentFuture.join())
 					.collect(Collectors.toList());
 		});
-		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
 
 		return lResourceProductContentsFuture.get();
 	}
@@ -69,12 +68,16 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Product save(Product pProduct) throws URISyntaxException {
-		return productRepository.save(pProduct);
-
+		Product lProduct = productRepository.save(pProduct);
+		for (Object lObject : lProduct.getImage()) {
+			saveImage(lProduct, lObject);
+		}
+		return lProduct;
 	}
 
 	@Override
 	public void deleteById(int pId) {
+		deleteImage(pId);
 		productRepository.deleteById(pId);
 	}
 
@@ -91,6 +94,8 @@ public class ProductService implements IProductService {
 
 		return lUpdatedProduct;
 	}
+
+	/* -------------- Method to image -------------- */
 
 	/**
 	 * Create a Product with a image from to image service to way asynchrone
@@ -122,10 +127,18 @@ public class ProductService implements IProductService {
 	 * @param pProduct
 	 * @return restTemplate Object
 	 */
-	private Object getImageFromImageService(Product pProduct) {
-		ResponseEntity<Object> response = restTemplate
-				.getForEntity(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_ID_PRODUCT + pProduct.getId(), Object.class);
+	private List<Object> getImageFromImageService(Product pProduct) {
+		ResponseEntity<List> response = restTemplate
+				.getForEntity(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_ID_PRODUCT + pProduct.getId(), List.class);
 		return response.getBody();
 	}
 
+	private void saveImage(Product lProduct, Object pImage) {
+		restTemplate.postForObject(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_ADD + "/" + lProduct.getId(), pImage,
+				Object.class);
+	}
+
+	private void deleteImage(int pIdProduct) {
+		restTemplate.delete(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_DELETE + pIdProduct);
+	}
 }

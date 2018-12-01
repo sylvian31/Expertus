@@ -22,6 +22,6 @@ public interface IImageService {
 
 	public Image update(Image image, int id) throws URISyntaxException;
 
-	public Optional<Image> findByIdProduct(int idProduct);
+	public Optional<List<Image>> findByIdProduct(int idProduct);
 	
 }

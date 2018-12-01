@@ -29,7 +29,7 @@ public class ImageService implements IImageService{
 	}
 	
 	@Override
-	public Optional<Image> findByIdProduct(int idProduct) {
+	public Optional<List<Image>> findByIdProduct(int idProduct) {
 		return imageRepository.findByIdProduct(idProduct);
 	}
 	
@@ -37,7 +37,7 @@ public class ImageService implements IImageService{
 	public Image save(Image pImage) throws URISyntaxException {
 		return imageRepository.save(pImage);
 	}
-
+	
 	@Override
 	public void deleteById(int pId) {
 		imageRepository.deleteById(pId);
@@ -46,7 +46,6 @@ public class ImageService implements IImageService{
 	@Override
 	public Image update(Image pNewImage, int pId) throws URISyntaxException {
 		Image lUpdatedImage = imageRepository.findById(pId).map(image -> {
-			image.setName(pNewImage.getName());
 			image.setUrl(pNewImage.getUrl());
 			return imageRepository.save(image);
 		}).orElseGet(() -> {

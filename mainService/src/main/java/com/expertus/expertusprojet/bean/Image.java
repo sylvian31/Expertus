@@ -2,8 +2,6 @@ package com.expertus.expertusprojet.bean;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,12 +9,12 @@ public class Image implements Serializable {
 
 	private Long id;
 
-	private String name;
-
 	private String url;
-	
+
+	private Long idProduct;
+
 	public Image() {
-		
+
 	}
 
 	@Override
@@ -47,14 +45,6 @@ public class Image implements Serializable {
 		this.id = pId;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String pName) {
-		this.name = pName;
-	}
-
 	public String getUrl() {
 		return url;
 	}
@@ -63,10 +53,17 @@ public class Image implements Serializable {
 		this.url = pUrl;
 	}
 
+	public Long getIdProduct() {
+		return idProduct;
+	}
+
+	public void setIdProduct(Long idProduct) {
+		this.idProduct = idProduct;
+	}
+
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", url=" + url + "]";
+		return "Image [id=" + id + ", url=" + url + "]";
 	}
-	
-	
+
 }

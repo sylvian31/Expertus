@@ -1,6 +1,7 @@
 package com.expertus.expertusprojet.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,8 +20,7 @@ public class Product implements Serializable {
 	@NotNull
 	private double price;
 
-	@NotNull
-	private Image image;
+	private List<Image> images;
 	
 	public Product() {
 
@@ -78,18 +78,20 @@ public class Product implements Serializable {
 		this.price = pPrice;
 	}
 
-	public Image getImage() {
-		return image;
+	public List<Image> getImage() {
+		return images;
 	}
 
-	public void setImage(Image pImage) {
-		this.image = pImage;
+	public void setImage(List<Image> pImage) {
+		this.images = pImage;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + "]";
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", images=" + images + "]";
 	}
+
+	
 	
 	
 

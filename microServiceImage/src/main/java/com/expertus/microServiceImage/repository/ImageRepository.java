@@ -9,5 +9,5 @@ import com.expertus.microServiceImage.bean.Image;
 
 @Repository
 public interface ImageRepository extends JpaRepository<Image, Integer> {
-	Optional<Image> findByIdProduct(int idProduct);
+	Optional<List<Image>> findByIdProduct(int idProduct);
 }
