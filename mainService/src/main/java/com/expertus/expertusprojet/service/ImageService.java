@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.expertus.expertusprojet.bean.Image;
-import com.expertus.expertusprojet.bean.Product;
 import com.expertus.expertusprojet.config.GlobalPropertiesPath;
 
 @Service

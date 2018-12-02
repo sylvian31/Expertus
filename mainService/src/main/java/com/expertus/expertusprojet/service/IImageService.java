@@ -1,11 +1,8 @@
 package com.expertus.expertusprojet.service;
 
 import com.expertus.expertusprojet.bean.Image;
-import com.expertus.expertusprojet.bean.Product;
 
 public interface IImageService {
-
-
 
 	/**
 	 * Add a image
