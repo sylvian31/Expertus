@@ -1,7 +1,5 @@
 package com.expertus.microServiceProduct;
 
-import java.util.concurrent.Executor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.expertus.microServiceProduct.service.IProductService;
 
@@ -23,7 +18,6 @@ import com.expertus.microServiceProduct.service.IProductService;
 @EnableJpaRepositories("com.expertus.microServiceProduct.repository")
 @EnableEurekaClient
 @EnableAsync
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class MicroServiceProductApplication implements CommandLineRunner {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -4,8 +4,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 
 import com.expertus.microServiceImage.bean.Image;
