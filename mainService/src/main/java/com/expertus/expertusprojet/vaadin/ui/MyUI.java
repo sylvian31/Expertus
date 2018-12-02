@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import com.expertus.expertusprojet.config.GlobalPropertiesPath;
 import com.expertus.expertusprojet.vaadin.view.AddProductView;
 import com.expertus.expertusprojet.vaadin.view.DefaultView;
 import com.expertus.expertusprojet.vaadin.view.GridProductView;
@@ -30,11 +31,14 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringViewDisplay
 public class MyUI extends UI implements ViewDisplay {
 
+	/** The environment */
 	@Autowired
 	Environment env;
 
+	/** The name of view */
 	protected static final String MAINVIEW = "main";
 
+	/** The horizontal layout for insert the views */
 	private HorizontalLayout horizontalLayoutForView;
 
 	@Override
@@ -42,7 +46,7 @@ public class MyUI extends UI implements ViewDisplay {
 
 		final VerticalLayout lVerticalLayout = new VerticalLayout();
 		final HorizontalLayout lHorizontalLayout = new HorizontalLayout();
-		final Label lLabel = new Label("EXPERTUS");
+		final Label lLabel = new Label(env.getProperty(GlobalPropertiesPath.I18N_UI_TITLE));
 		final CssLayout lNavigationBar = new CssLayout();
 		horizontalLayoutForView = new HorizontalLayout();
 
@@ -54,9 +58,12 @@ public class MyUI extends UI implements ViewDisplay {
 		lHorizontalLayout.addComponent(lNavigationBar);
 
 		lNavigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-		lNavigationBar.addComponent(createNavigationButton("Home", DefaultView.VIEW_NAME));
-		lNavigationBar.addComponent(createNavigationButton("List product", GridProductView.VIEW_NAME));
-		lNavigationBar.addComponent(createNavigationButton("Add product", AddProductView.VIEW_NAME));
+		lNavigationBar.addComponent(
+				createNavigationButton(env.getProperty(GlobalPropertiesPath.I18N_NAVIGATION_BUTTON_HOME), DefaultView.VIEW_NAME));
+		lNavigationBar.addComponent(createNavigationButton(env.getProperty(GlobalPropertiesPath.I18N_NAVIGATION_BUTTON_LIST_PRODUCT),
+				GridProductView.VIEW_NAME));
+		lNavigationBar.addComponent(createNavigationButton(env.getProperty(GlobalPropertiesPath.I18N_NAVIGATION_BUTTON_ADD_PRODUCT),
+				AddProductView.VIEW_NAME));
 
 		setContent(lVerticalLayout);
 	}
@@ -67,6 +74,13 @@ public class MyUI extends UI implements ViewDisplay {
 		horizontalLayoutForView.addComponent((Component) pView);
 	}
 
+	/**
+	 * Create the navigation button
+	 * 
+	 * @param pCaption
+	 * @param pViewName
+	 * @return Button
+	 */
 	private Button createNavigationButton(String pCaption, final String pViewName) {
 		Button lButton = new Button(pCaption);
 		lButton.addStyleName(ValoTheme.BUTTON_SMALL);
@@ -80,7 +94,3 @@ public class MyUI extends UI implements ViewDisplay {
 
 	}
 }
-
-// Set default view
-//NavigationStateManager stateManager = new Navigator.UriFragmentManager(getPage());
-//stateManager.setState(GridProductView.VIEW_NAME);

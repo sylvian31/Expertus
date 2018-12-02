@@ -1,25 +1,43 @@
 package com.expertus.expertusprojet.service;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.expertus.expertusprojet.bean.Product;
-
 
 public interface IProductService {
 
-    public ResponseEntity<Product[]> findAll();
-    
-    public Product findById(Long id);
+	/**
+	 * Find all product
+	 * 
+	 * @return Array product
+	 */
+	public Product[] findAll();
 
-    public ResponseEntity<Product> add( Product product);
+	/**
+	 * Find a product by his id
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	public Product findById(Long id);
 
-    public Product update(Long id, Product product);
+	/**
+	 * Add a product
+	 * 
+	 * @param product
+	 * @return 
+	 */
+	public Product add(Product product);
 
-    public void delete(Long id);
+	/**
+	 * Update a product
+	 * 
+	 * @param product
+	 */
+	public void update(Product product);
+
+	/**
+	 * Delete a product by his id
+	 * 
+	 * @param id
+	 */
+	public void delete(Long id);
 }

@@ -50,6 +50,6 @@ public interface IProductService {
 	 * @return Updated Product
 	 * @throws URISyntaxException
 	 */
-	public Product update(Product product, int id) throws URISyntaxException;
+	public Product update(Product product) throws URISyntaxException;
 
 }

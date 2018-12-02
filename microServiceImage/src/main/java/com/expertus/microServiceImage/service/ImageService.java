@@ -45,15 +45,14 @@ public class ImageService implements IImageService{
 
 	@Override
 	public Image update(Image pNewImage, int pId) throws URISyntaxException {
-		Image lUpdatedImage = imageRepository.findById(pId).map(image -> {
-			image.setUrl(pNewImage.getUrl());
-			return imageRepository.save(image);
+		Image lUpdatedImage = imageRepository.findById(pId).map(lImage -> {
+			lImage.setUrl(pNewImage.getUrl());
+			return imageRepository.save(lImage);
 		}).orElseGet(() -> {
-			pNewImage.setId(pId);
 			return imageRepository.save(pNewImage);
 		});
-
 		return lUpdatedImage;
 	}
+	
 
 }

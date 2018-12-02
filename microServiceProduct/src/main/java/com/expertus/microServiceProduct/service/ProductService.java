@@ -39,7 +39,6 @@ public class ProductService implements IProductService {
 		List<Product> lProducts = productRepository.findAll();
 		List<CompletableFuture<Product>> lProductsWithImageContentFutures = new ArrayList<>();
 		// Start the clock
-		long start = System.currentTimeMillis();
 		for (Product product : lProducts) {
 			lProductsWithImageContentFutures.add(updateProductWithImageAsync(product));
 		}
@@ -69,29 +68,23 @@ public class ProductService implements IProductService {
 	@Override
 	public Product save(Product pProduct) throws URISyntaxException {
 		Product lProduct = productRepository.save(pProduct);
-		for (Object lObject : lProduct.getImage()) {
-			saveImage(lProduct, lObject);
-		}
 		return lProduct;
 	}
 
 	@Override
 	public void deleteById(int pId) {
-		deleteImage(pId);
 		productRepository.deleteById(pId);
 	}
 
 	@Override
-	public Product update(Product pNewProduct, int pId) throws URISyntaxException {
-		Product lUpdatedProduct = productRepository.findById(pId).map(product -> {
-			product.setName(pNewProduct.getName());
-			product.setPrice(pNewProduct.getPrice());
-			return productRepository.save(product);
+	public Product update(Product pNewProduct) throws URISyntaxException {
+		Product lUpdatedProduct = productRepository.findById(pNewProduct.getId()).map(lProduct -> {
+			lProduct.setName(pNewProduct.getName());
+			lProduct.setPrice(pNewProduct.getPrice());
+			return productRepository.save(lProduct);
 		}).orElseGet(() -> {
-			pNewProduct.setId(pId);
 			return productRepository.save(pNewProduct);
 		});
-
 		return lUpdatedProduct;
 	}
 
@@ -133,12 +126,4 @@ public class ProductService implements IProductService {
 		return response.getBody();
 	}
 
-	private void saveImage(Product lProduct, Object pImage) {
-		restTemplate.postForObject(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_ADD + "/" + lProduct.getId(), pImage,
-				Object.class);
-	}
-
-	private void deleteImage(int pIdProduct) {
-		restTemplate.delete(GlobalPropertiesPathConfig.URL_IMAGE_SERVICE_DELETE + pIdProduct);
-	}
 }

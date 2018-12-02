@@ -11,48 +11,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product implements Serializable {
 
+	/** The id product */
 	private Long id;
 
+	/** The product name */
 	@NotNull
 	@Size(min = 1)
 	private String name;
 
+	/** The product price */
 	@NotNull
 	private double price;
 
+	/** The list image */
 	private List<Image> images;
-	
+
+	/**
+	 * The Constructor
+	 */
 	public Product() {
 
 	}
 
-	public Product(Long pId, @NotNull @Size(min = 1) String pName, @NotNull double pPrice) {
-		super();
-		this.id = pId;
-		this.name = pName;
-		this.price = pPrice;
-	}
-	
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Product company = (Product) o;
-
-        if (id != null)
-			return id.equals(company.id);
-		else
-			return company.id == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-    
-    /* -------------- Getter & Setter -------------- */
+	/* -------------- Getter & Setter -------------- */
 
 	public Long getId() {
 		return id;
@@ -90,9 +71,5 @@ public class Product implements Serializable {
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", images=" + images + "]";
 	}
-
-	
-	
-	
 
 }

@@ -18,6 +18,13 @@ public class Image {
 	public Image() {
 		super();
 	}
+	
+	public Image(Image pImage) {
+		super();
+		this.id = pImage.getId();
+		this.url = pImage.getUrl();
+		this.idProduct = pImage.getIdProduct();
+	}
 
 	public Image(String pUrl, int pIdProduct) {
 		super();

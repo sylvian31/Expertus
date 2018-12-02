@@ -101,9 +101,9 @@ public class ProductController {
 	 * @return the update Order
 	 * @throws URISyntaxException
 	 */
-	@PutMapping(value = aze, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Product replaceProduct(@RequestBody Product newProduct, @PathVariable int id) throws URISyntaxException {
-		return productService.update(newProduct, id);
+	@PutMapping(value = GlobalPropertiesPathConfig.ROUTE_PRODUCT_PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Product replaceProduct(@RequestBody Product newProduct) throws URISyntaxException {
+		return productService.update(newProduct);
 	}
 
 	/* -------------- Delete -------------- */

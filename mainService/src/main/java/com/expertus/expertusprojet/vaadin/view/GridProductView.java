@@ -3,8 +3,10 @@ package com.expertus.expertusprojet.vaadin.view;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import com.expertus.expertusprojet.bean.Product;
+import com.expertus.expertusprojet.config.GlobalPropertiesPath;
 import com.expertus.expertusprojet.service.ProductService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -21,47 +23,53 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @UIScope
 @SpringView(name = GridProductView.VIEW_NAME)
-public class GridProductView extends VerticalLayout implements View{
+public class GridProductView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "gridProduct";
-    
+	/** The view name */
+	public static final String VIEW_NAME = "gridProduct";
+	
+	/** The environment */
+	@Autowired
+	Environment env;
+
+	/** The product service */
 	@Autowired
 	private ProductService productService;
 
+	/** The grid for show product */
 	private Grid<Product> gridProduct;
-    
-    @PostConstruct
-    void init() {
-    	gridProduct = new Grid();
-        addComponent(new Label("This is a product view"));
-        addComponent(gridProduct);
-        initListProduct();
-    }
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-    	gridProduct.setItems(productService.findAll().getBody());
-    }
-    
-	private void initListProduct() {
-		gridProduct.setItems(productService.findAll().getBody());
-		gridProduct.addColumn(Product::getName).setCaption("Name");
-		gridProduct.addColumn(Product::getPrice).setCaption("Price");
-//		gridProduct.addColumn(p -> createImage(p), new ImageRenderer()).setCaption("Image");
+	@PostConstruct
+	void init() {
+		gridProduct = new Grid();
+		addComponent(new Label(env.getProperty(GlobalPropertiesPath.I18N_VIEW_GRID_PRODUCT_LABEL_TITLE)));
+		addComponent(gridProduct);
+		initGridProduct();
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		updateList();
+	}
+
+	/**
+	 * Init grid product
+	 */
+	private void initGridProduct() {
+		gridProduct.addColumn(Product::getName).setCaption(env.getProperty(GlobalPropertiesPath.I18N_VIEW_GRID_PRODUCT_COLUMN_NAME));
+		gridProduct.addColumn(Product::getPrice).setCaption(env.getProperty(GlobalPropertiesPath.I18N_VIEW_GRID_PRODUCT_COLUMN_PRICE));
 
 		gridProduct.addComponentColumn(this::buildDescriptionLink);
 		gridProduct.addComponentColumn(this::buildDeleteButton);
 
 	}
-	
-	private ExternalResource createImage(Product pProduct) {
-		String lUrl = "";
-		if (pProduct.getImage() != null) {
-			lUrl = pProduct.getImage().get(0).getUrl();
-		}
-		return new ExternalResource(lUrl);
-	}
-	
+
+	/**
+	 * Build delete button
+	 * 
+	 * @param pProduct
+	 * @return Button
+	 */
 	private Button buildDeleteButton(Product pProduct) {
 		Button lButton = new Button(VaadinIcons.TRASH);
 		lButton.addStyleName(ValoTheme.BUTTON_SMALL);
@@ -69,15 +77,34 @@ public class GridProductView extends VerticalLayout implements View{
 		return lButton;
 	}
 
+	/**
+	 * Event delete button
+	 * 
+	 * @param pProduct
+	 */
 	private void deleteButtonProductClicked(Product pProduct) {
 		productService.delete(pProduct.getId());
-		gridProduct.setItems(productService.findAll().getBody());
+		updateList();
 	}
-	
+
+	/**
+	 * Build description link
+	 * 
+	 * @param pProduct
+	 * @return Link
+	 */
 	private Link buildDescriptionLink(Product pProduct) {
-		Link lLink = new Link("Description", new ExternalResource("#!" + DescriptifProductView.VIEW_NAME + "/" + pProduct.getId()));
+		Link lLink = new Link(env.getProperty(GlobalPropertiesPath.I18N_VIEW_GRID_PRODUCT_COLUMN_DESCRIPTION),
+				new ExternalResource("#!" + DescriptifProductView.VIEW_NAME + "/" + pProduct.getId()));
 		lLink.addStyleName(ValoTheme.BUTTON_LINK);
 		return lLink;
 	}
-	
+
+	/**
+	 * Update list to the grid product
+	 */
+	private void updateList() {
+		gridProduct.setItems(productService.findAll());
+	}
+
 }
