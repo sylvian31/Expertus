@@ -90,7 +90,7 @@ public class DescriptifProductView extends VerticalLayout implements View {
 			int i = 1;
 			for (Image lImage : currentProduct.getImage()) {
 				Embedded lEmbedded = new Embedded("", new ExternalResource(lImage.getUrl()));
-				lEmbedded.setWidth(150, Unit.PIXELS);
+				lEmbedded.setWidth(200, Unit.PIXELS);
 				lEmbedded.setHeight(150, Unit.PIXELS);
 				horizontalLayoutImages.addComponent(lEmbedded);
 				i++;
